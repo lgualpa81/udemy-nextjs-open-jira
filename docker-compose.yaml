@@ -1,0 +1,6 @@
+services:
+  entriesdb:
+    image: mongo:4.4-focal
+    container_name: entries-db
+    ports:
+      - 27017:27017
