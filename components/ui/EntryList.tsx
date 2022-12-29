@@ -25,7 +25,7 @@ export const EntryList: FC<Props> = ({ status }) => {
   };
   const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
     const id: string = event.dataTransfer.getData("card_id");
-    console.log({ id });
+    //console.log({ id });
     const entry: Entry = entries.find((e) => e._id == id)!;
     entry.status = status;
     updateEntry(entry);

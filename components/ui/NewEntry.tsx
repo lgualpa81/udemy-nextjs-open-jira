@@ -21,7 +21,7 @@ export const NewEntry = () => {
 
   const onSave = () => {
     if (inputValue.length === 0) return;
-    console.log(inputValue);
+    //console.log(inputValue);
     addNewEntry(inputValue);
     setInputValue("");
     setIsAddingEntry(false);
