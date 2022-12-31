@@ -52,6 +52,20 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 }
 
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+    const { id } = req.query
+    await db.connect()
+    try {
+        const entryDeleted = await Entry.findByIdAndDelete(id)
+        await db.disconnect()
+        res.status(200).json(entryDeleted!)
+    } catch (error) {
+        console.log(error)
+        await db.disconnect()
+        return res.status(400).json({ message: `Bad request, invalid id: ${id}` })
+    }
+}
+
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     const { id } = req.query
     if (!mongoose.isValidObjectId(id)) {
@@ -63,6 +77,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return updateEntry(req, res)
         case 'GET':
             return getEntry(req, res)
+        case 'DELETE':
+            return deleteEntry(req, res)
         default:
             return res.status(200).json({ message: 'Endpoint incorrecto' })
     }
